@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Audible Tabs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A button that cycles through your currently audible tabs",
   "background": {
     "scripts": ["background.js"]

@@ -36,15 +36,19 @@ function activateTab(tab) {
  * @param {!Tab} activeTab The tab that was active when the badge was clicked.
  */
 function onBrowserActionClicked(activeTab) {
+  // In order to get cycle behavior, we:
+  // - Remove the current tab from the list of audible tabs
+  // - Sort the list of audible tabs by tab ID
+  // - Activate either:
+  //   - The tab with the lowest ID greater than the current tab ID.
+  //   - The tab with the lowest ID.
   getAudibleTabs()
     .then(tabs => tabs.filter(t => t.id != activeTab.id))
+    .then(tabs => tabs.sort((a, b) => a.id - b.id))
     .then(tabs => {
       if (tabs.length == 0) {
-        return;
+        return; // No audible tabs (except maybe the current one)
       }
-
-      // Sort by increasing tabId
-      tabs = tabs.sort((a, b) => a.id - b.id);
 
       /** @type {!Tab} */
       let nextTab = tabs.find(t => t.id > activeTab.id) || tabs[0];
