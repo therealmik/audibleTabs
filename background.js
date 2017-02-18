@@ -6,14 +6,6 @@
 
 
 /**
- * Recently activated tabIds.
- *
- * @type {!Array<!string>}
- */
-var recentlyActivated = [];
-
-
-/**
  * Gets all audible tabs.
  *
  * @return {!Promise<!Array<Tab>>}
@@ -60,5 +52,6 @@ function onBrowserActionClicked(activeTab) {
       activateTab(nextTab);
     });
 }
+
 
 chrome.browserAction.onClicked.addListener(onBrowserActionClicked);
