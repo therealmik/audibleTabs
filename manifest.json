@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Shutup Button",
+  "name": "Audible Tabs",
   "version": "0.0.1",
-  "description": "A button that will mute all audible tabs",
+  "description": "A button that activates the audible tab, or lists all of them.",
   "background": {
     "scripts": ["background.js"]
   },
@@ -10,6 +10,6 @@
     "default_icon": {
 
     },
-    "default_title": "Shutup"
+    "default_title": "Audible Tabs"
   }
 }
