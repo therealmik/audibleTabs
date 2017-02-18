@@ -1,5 +1,5 @@
 /**
- * @fileoverview An extension that mutes all audible tabs.
+ * @fileoverview An extension that cycles through audible tabs.
  */
 
 'use strict';
