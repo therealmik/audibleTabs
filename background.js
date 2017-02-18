@@ -6,6 +6,14 @@
 
 
 /**
+ * Recently activated tabIds.
+ *
+ * @type {!Array<!string>}
+ */
+var recentlyActivated = [];
+
+
+/**
  * Gets all audible tabs.
  *
  * @return {!Promise<!Array<Tab>>}
@@ -39,9 +47,17 @@ function onBrowserActionClicked(activeTab) {
   getAudibleTabs()
     .then(tabs => tabs.filter(t => t.id != activeTab.id))
     .then(tabs => {
-      if (tabs.length > 0) {
-        activateTab(tabs[0]);
+      if (tabs.length == 0) {
+        return;
       }
+
+      // Sort by increasing tabId
+      tabs = tabs.sort((a, b) => a.id - b.id);
+
+      /** @type {!Tab} */
+      let nextTab = tabs.find(t => t.id > activeTab.id) || tabs[0];
+
+      activateTab(nextTab);
     });
 }
 
