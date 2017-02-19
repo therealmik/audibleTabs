@@ -8,7 +8,7 @@
 /**
  * Gets all audible tabs.
  *
- * @return {!Promise<!Array<Tab>>}
+ * @return {!Promise<!Array<!Tab>>}
  */
 function getAudibleTabs() {
   return new Promise(resolve => {
@@ -21,12 +21,35 @@ function getAudibleTabs() {
  * Activates a tab.
  *
  * @param {!Tab} tab The tab that you want muted.
- * @return {!Promise<Tab>}
+ * @return {!Promise<!Tab>}
  */
 function activateTab(tab) {
   return new Promise(resolve => {
     chrome.tabs.update(tab.id, {active: true}, resolve);
   });
+}
+
+
+/**
+ * Compares the IDs of two tabs (as per Array.sort).
+ *
+ * @param {!Tab} a A Tab.
+ * @param {!Tab} b Another Tab.
+ * @return {number}
+ */
+function compareTabIds(a, b) {
+  return a.id - b.id;
+}
+
+
+/**
+ * Sorts tabs by their numerical ID.
+ *
+ * @param {!Array<!Tab>} tabs Some tabs to sort.
+ * @return {!Array<!Tab>}
+ */
+function sortTabsById(tabs) {
+  return tabs.sort(compareTabIds);
 }
 
 
@@ -44,7 +67,7 @@ function onBrowserActionClicked(activeTab) {
   //   - The tab with the lowest ID.
   getAudibleTabs()
     .then(tabs => tabs.filter(t => t.id != activeTab.id))
-    .then(tabs => tabs.sort((a, b) => a.id - b.id))
+    .then(sortTabsById)
     .then(tabs => {
       if (tabs.length == 0) {
         return; // No audible tabs (except maybe the current one)
